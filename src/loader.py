@@ -98,7 +98,8 @@ class SlackDataLoader:
         combined = []
         for json_file in glob.glob(f"{path_channel}*.json"):
             with open(json_file, 'r', encoding="utf8") as slack_data:
-                combined.append(slack_data)
+                data = json.load(slack_data)
+                combined.append(data)
 
         # loop through all json files and extract required informations
         dflist = []
@@ -116,7 +117,7 @@ class SlackDataLoader:
                     if 'user_profile' in row.keys(): sender_id.append(row['user_profile']['real_name'])
                     else: sender_id.append('Not provided')
                     time_msg.append(row['ts'])
-                    if 'blocks' in row.keys() and len(row['blocks'][0]['elements'][0]['elements']) != 0 :
+                    if 'blocks' in row.keys() and row['blocks'] is not None and len(row['blocks'][0]['elements'][0]['elements']) != 0 :
                         msg_dist.append(row['blocks'][0]['elements'][0]['elements'][0]['type'])
                     else: msg_dist.append('reshared')
                     if 'thread_ts' in row.keys():
