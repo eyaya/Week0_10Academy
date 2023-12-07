@@ -222,18 +222,3 @@ def map_userid_2_realname(user_profile: dict, comm_dict: dict, plot=False):
         plt.title('Student based on Message sent in thread', size=20)
         
     return ac_comm_dict
-
-def get_top_20_user(data, channel='Random'):
-    """get user with the highest number of message sent to any channel"""
-
-    data['sender_name'].value_counts()[:20].plot.bar(figsize=(15, 7.5))
-    plt.title(f'Top 20 Message Senders in #{channel} channels', size=15, fontweight='bold')
-    plt.xlabel("Sender Name", size=18); plt.ylabel("Frequency", size=14);
-    plt.xticks(size=12); plt.yticks(size=12);
-    plt.show()
-
-    data['sender_name'].value_counts()[-10:].plot.bar(figsize=(15, 7.5))
-    plt.title(f'Bottom 10 Message Senders in #{channel} channels', size=15, fontweight='bold')
-    plt.xlabel("Sender Name", size=18); plt.ylabel("Frequency", size=14);
-    plt.xticks(size=12); plt.yticks(size=12);
-    plt.show()
